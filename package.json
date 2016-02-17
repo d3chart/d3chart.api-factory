@@ -1,0 +1,27 @@
+{
+  "name": "d3chart.api-factory",
+  "version": "0.0.1",
+  "description": "API factory for d3chart",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/d3chart/d3chart.api-factory.git"
+  },
+  "keywords": [
+    "d3chart",
+    "api-factory"
+  ],
+  "author": "Wei Fei",
+  "license": "BSD-3-Clause",
+  "bugs": {
+    "url": "https://github.com/d3chart/d3chart.api-factory/issues"
+  },
+  "homepage": "https://github.com/d3chart/d3chart.api-factory#readme",
+  "dependencies": {
+    "d3": "3.5.15",
+    "d3chart.core": "^0.0.1"
+  }
+}
