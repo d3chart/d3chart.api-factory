@@ -4,8 +4,8 @@ var d3 = require('d3');
 
 // d3chart libs
 var core = require('d3chart.core/core.js');
-var ChartError = require('d3chart.core/error.js');
-import { CLASSNAME_CHART, KEY_SPLIT_FLAG } from 'd3chart.core/const.js';
+var DoOnError = require('d3chart.core/error.js');
+var V_GETER = require('d3chart.core/const.js');
 
 
 /*************************** API-Factory 通用方法 ***************************/
@@ -20,9 +20,9 @@ function _init () {
 
     d3.select(self.element)
         //
-        .classed(CLASSNAME_CHART, true)
+        .classed(V_GETER('CLASSNAME_CHART'), true)
         //标识当前图表的类型
-        .classed([CLASSNAME_CHART, self._type].join('-'), true);
+        .classed([V_GETER('CLASSNAME_CHART'), self._type].join('-'), true);
 
     core.isFunction(self.init) && self.init();
     //
@@ -46,7 +46,7 @@ function _setOptions (opts, keys) {
 
     keys = core.isString(keys) ? [keys] : [];
     for (var key in opts) {
-        _setOptions.call(this, opts[key], keys.concat([key]).join(KEY_SPLIT_FLAG));
+        _setOptions.call(this, opts[key], keys.concat([key]).join(V_GETER('KEY_SPLIT_FLAG')));
     }
 }
 
@@ -137,9 +137,9 @@ var APIFactory = function (self, extra) {
          * @return {API}         当前 API 用于支持链式调用；
          */
         init: function (element) {
-            ChartError(!core.isElement(element), '0000');
+            DoOnError(!core.isElement(element), '0000');
             //
-            this.init = function () { ChartError(true, '0000'); };
+            this.init = function () { DoOnError(true, '0000'); };
             //
             self.element = element;
             //
@@ -153,7 +153,7 @@ var APIFactory = function (self, extra) {
          * @return {API}         当前 API 用于支持链式调用；
          */
         setOptions: function (options) {
-            ChartError(!self.store, '0000');
+            DoOnError(!self.store, '0000');
             // if (!core.isPlainObject(options)) { return this; }
 
             _setOptions.call(self, options);
@@ -168,7 +168,7 @@ var APIFactory = function (self, extra) {
          * @return {API}         当前 API 用于支持链式调用；
          */
         setData: function (data, notClean) {
-            ChartError(!self.store, '0000');
+            DoOnError(!self.store, '0000');
 
             _setData.call(self, data, notClean);
             self.options.autoRender && this.render();
@@ -180,7 +180,7 @@ var APIFactory = function (self, extra) {
          * @return {API}         当前 API 用于支持链式调用；
          */
         render: function () {
-            ChartError(!self.store, '0000');
+            DoOnError(!self.store, '0000');
 
             notAsync ? _render.call(self) : __doPromise.call(self, this, _render);
 
@@ -191,7 +191,7 @@ var APIFactory = function (self, extra) {
          * @return {API}         当前 API 用于支持链式调用；
          */
         resize: function () {
-            ChartError(!self.store, '0000');
+            DoOnError(!self.store, '0000');
 
             notAsync ? _resize.call(self) : __doPromise.call(self, this, _resize);
 
@@ -210,7 +210,7 @@ var APIFactory = function (self, extra) {
          * @return {[type]} [description]
          */
         destroy: function () {
-            ChartError(!self.store, '0000');
+            DoOnError(!self.store, '0000');
 
             _destroy.call(self, this);
 
